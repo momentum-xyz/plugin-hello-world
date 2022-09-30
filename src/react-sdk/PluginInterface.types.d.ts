@@ -18,9 +18,35 @@ export interface EventsInterface {
   emit(event: string, ...args: any[]): void;
 }
 
+export interface WidgetItem {
+  icon: string; // maybe separate fields for icon name and url?
+  tooltip: string;
+  onClick: (e: MouseEventHandler<HTMLButtonElement>) => void;
+}
+
+export interface WidgetsInterface {
+  /**
+   * Add an item to the widget list, the order is undetermined.
+   */
+  item?: WidgetItem;
+
+  /**
+   * Modify the widget list by probably adding your item(s) to it,
+   * potentially on the preferred position.
+   */
+  extendList?: (widgets: WidgetItem[]) => WidgetItem[];
+}
+
 export interface PluginSDKInterface {
   currentUser: UserInterface;
+
   events: EventsInterface;
+
+  widgets: WidgetsInterface;
+
+  // Temporary, in this way
+  init: () => void;
+
   // theme: ThemeInterface;
   // config: object;
   // appId: string;
